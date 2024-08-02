@@ -18,26 +18,77 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "bootstrapComponents";
 
 // 5. Du kan lave styling her...
+h1 {
+	font-size: 3rem; /* Font size for h1 */
+	font-weight: bold; /* Bold text */
+	color: #000; /* Text color for h1 */
+	margin-bottom: 1rem; /* Space below the heading */
+	font-family: "Roboto Light";
+}
+
+h2 {
+	font-size: 1.5rem;
+	font-family: Inter;
+}
+
 
 .header {
-	background-image: url('../uploads/togheader.jpg');
+	background-image: url('../uploads/BannerAlene.png');
 	background-size: cover;
 	background-position: center;
-	height: 300px;
 }
+
 
 @media (min-width: 992px) {
 	.header {
-		height: 400px; /* Fixed height for even larger screens */
+		height: 70vh;
 		background-size: cover;
 		background-position: center;
 	}
+	.textbox {
+		min-height: 50vh;
+	}
+}
+
+.nav-item {
+	font-family: "Roboto Light";
+	font-weight: bold;
+	font-size: 1.5rem;
+	padding: 3px;
+}
+
+.nav-link {
+	color: #000; /* Default text color */
+	text-decoration: none;
+	transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hover effect */
+.nav-link:hover {
+	color: #fff; /* Text color on hover */
+	background-color: #0056b3; /* Background color on hover */
+	text-decoration: none;
+	border-radius: 0.50rem;
+	padding: 5px;
+}
+
+/* Click effect */
+.nav-link:active {
+	color: #fff; /* Text color when clicked */
+	background-color: #003d7a; /* Background color when clicked */
+	text-decoration: none;
+}
+
+/* Active link styling */
+.nav-link.active {
+	color: #fff; /* Text color for active link */
+	background-color: #004085; /* Background color for active link */
 }
 
 .separator {
 	max-height: 10px;
 	min-height: 10px;
-	background-color: darkblue;
+	background-color: #9DA1AA;
 }
 
 .small-images img {
@@ -47,23 +98,37 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 .SenesteVideo {
-	padding: 20px;
+	padding-bottom: 50px;
 	text-align: center;
 	background-image: url("../uploads/baggrundbillede.png");
 	background-size: cover;
 	background-position: center;
 
-
 }
+
+.afstemning {
+	background-image: url("../uploads/baggrundbillede.png");
+	background-size: contain;
+	background-position: center;
+	height: 100vh;
+}
+
+.carousel {
+	background-image: url("../uploads/baggrundbillede.png");
+	background-size: contain;
+	background-position: center;
+}
+
 .video-container {
 	position: relative;
 	width: 100%;
 	max-width: 80%;
-	padding-bottom: 56.25%; /* 16:9 Ratio */
+	padding-bottom: 40.25%; /* For at få 16:9 opløsning */
 	height: 0;
 	overflow: hidden;
 	margin: 0 auto;
 }
+
 .video-container iframe {
 	position: absolute;
 	top: 0;
@@ -73,9 +138,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	max-height: 80vh;
 }
 
+.kontakt {
+	background-color: #7fbee1;
+}
+
 .copyright {
-	background-color: darkblue;
-	color: white;
+	background-color: #047FC0;
+	color: lightgray;
 }
 
 .carousel-inner .carousel-item img {
@@ -85,6 +154,34 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	max-height: 100vh;
 	display: block;
 	margin: 0 auto; /* Center the images horizontally */
+}
+
+.navbar-collapse {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: 100%;
+	background-color: #f8f9fa; /* Ensure background color matches the navbar */
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: add shadow for better visibility */
+	z-index: 1000; /* Ensure it appears above other content */
+}
+
+@media (min-width: 992px) {
+	.navbar-collapse {
+		position: static;
+		width: auto;
+		box-shadow: none; /* Remove shadow on larger screens */
+	}
+}
+
+.logo {
+	max-height: 15rem;
+}
+
+@media (min-width: 992px) {
+	.logo {
+		max-height: 25rem;
+	}
 }
 
 /* Ensure carousel controls are properly positioned */
@@ -99,4 +196,76 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 	background-color: rgba(0, 0, 0, 0.5); /* Optional: add a background to the icons for better visibility */
 	border-radius: 50%;
 	padding: 10px; /* Adjust padding if needed */
+}
+
+/* TIL CTA KNAPPER */
+.button-group {
+	margin-top: 2rem; /* Space above the button group */
+}
+
+/* Base styles for buttons */
+.button {
+	display: inline-block;
+	font-size: 1rem; /* Font size */
+	font-weight: 600; /* Font weight */
+	text-align: center;
+	text-decoration: none;
+	padding: 0.75rem 1.5rem; /* Padding */
+	border: none;
+	border-radius: 0.5rem; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s ease, color 0.3s ease; /* Transition effects */
+	color: #fff; /* Text color */
+}
+
+/* Primary button style */
+.button-primary {
+	background-color: #007bff; /* Primary background color */
+}
+
+.button-primary:hover {
+	background-color: #0056b3; /* Darker shade on hover */
+}
+
+.button-primary:active {
+	background-color: #004085; /* Even darker shade on click */
+}
+
+/* Secondary button style */
+.button-secondary {
+	background-color: #0f9e1e; /* Secondary background color */
+}
+
+.button-secondary:hover {
+	background-color: #0d8118; /* Darker shade on hover */
+}
+
+.button-secondary:active {
+	background-color: #096411; /* Even darker shade on click */
+}
+
+/* Tertiary button style */
+.button-tertiary {
+	background-color: #0f9e1e; /* Tertiary background color */
+}
+
+.button-tertiary:hover {
+	background-color: #0d8118; /* Darker shade on hover */
+}
+
+.button-tertiary:active {
+	background-color: #096411; /* Even darker shade on click */
+}
+
+/* Quaternary button style */
+.button-quaternary {
+	background-color: #0f9e1e; /* Quaternary background color */
+}
+
+.button-quaternary:hover {
+	background-color: #0d8118; /* Darker shade on hover */
+}
+
+.button-quaternary:active {
+	background-color: #096411; /* Even darker shade on click */
 }
