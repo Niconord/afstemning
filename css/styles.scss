@@ -36,6 +36,8 @@ h2 {
 	background-image: url('../uploads/BannerAlene.png');
 	background-size: cover;
 	background-position: center;
+	text-align: center;
+	align-items: center;
 }
 
 
@@ -268,4 +270,19 @@ h2 {
 
 .button-quaternary:active {
 	background-color: #096411; /* Even darker shade on click */
+}
+
+
+/* FORM TIL INDSÆT */
+.form-container {
+	margin-top: 20px;
+	padding: 20px;
+	border-radius: 8px;
+	background-color: #f8f9fa;
+}
+.form-label {
+	font-weight: bold;
+}
+.btn-submit {
+	width: 100%; /* Ensure button takes full width */
 }

@@ -3,24 +3,30 @@ require "settings/init.php";
 
 if (!empty($_POST["data"])) {
     $data = $_POST["data"];
-    $file = $_FILES;
+    $files = $_FILES['rejsebillede'];
 
-    if (!empty($file["rejsebillede"]["tmp_name"])) {
-        move_uploaded_file($file["rejsebillede"]["tmp_name"], "uploads/" . basename($file["rejsebillede"]["name"]));
+    foreach ($data['lokation'] as $index => $lokation) {
+        if (!empty($files['tmp_name'][$index])) {
+            $fileName = basename($files['name'][$index]); // Extract file name
+            $filePath = "uploads/" . $fileName; // Define the file path
+
+            // Move the uploaded file to the target directory
+            if (move_uploaded_file($files['tmp_name'][$index], $filePath)) {
+                $sql = "INSERT INTO rejser (lokation, rejsebillede) VALUES (:lokation, :rejsebillede)";
+                $bind = [
+                    ":lokation" => $lokation,
+                    ":rejsebillede" => $fileName,
+                ];
+
+                $db->sql($sql, $bind, false);
+            } else {
+                echo "Failed to upload file: " . $fileName;
+            }
+        }
     }
 
-
-    $sql = "INSERT INTO rejser (lokation, rejsebillede) VALUES(:lokation, :rejsebillede)";
-    $bind = [
-        ":lokation" => $data["lokation"],
-
-        ":rejsebillede" => (!empty($file["rejsebillede"]["tmp_name"])) ? $file["rejsebillede"]["name"] : NULL,
-    ];
-
-    $db->sql($sql, $bind, false);
-    header('location: Indsaet.php');
+    header('Location: Indsaet.php');
     exit;
-
 }
 ?>
 
@@ -45,65 +51,84 @@ if (!empty($_POST["data"])) {
 
 <body>
 <div class="container-fluid">
-    <div class="row bg-secondary text-white pb-1">
+    <div class="row pb-2">
         <div class="col-12 header d-flex justify-content-center">
             <h1>Indsæt rejselokationer til din afstemning</h1>
         </div>
     </div>
 </div>
+<div class="col-12 justify-content-center text-center align-items-center">
+    <h3>Indsæt op til 4 lokationer. Dit sidstvalgte "gem afstemning" vil være den afstemning, som ligger på din hjemmeside.</h3>
+    <h2>Kun .jpg filer kan benyttes til upload af billeder</h2>
+</div>
+<div class="container form-container">
+    <form method="post" action="Indsaet.php" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <label class="form-label" for="rejsebillede1">Billede af rejselokation</label>
+                <input type="file" class="form-control" id="rejsebillede1" name="rejsebillede[]">
+            </div>
+            <div class="col-12 col-md-8 mb-3">
+                <label class="form-label" for="lokation1">Lokation (Land, By)</label>
+                <input class="form-control" type="text" name="data[lokation][]" id="lokation1" placeholder="Lokation" value="">
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label" for="rejsebillede2">Billede af rejselokation</label>
+                <input type="file" class="form-control" id="rejsebillede2" name="rejsebillede[]">
+            </div>
+            <div class="col-12 col-md-8 mb-3">
+                <label class="form-label" for="lokation2">Lokation (Land, By)</label>
+                <input class="form-control" type="text" name="data[lokation][]" id="lokation2" placeholder="Lokation" value="">
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label" for="rejsebillede3">Billede af rejselokation</label>
+                <input type="file" class="form-control" id="rejsebillede3" name="rejsebillede[]">
+            </div>
+            <div class="col-12 col-md-8 mb-3">
+                <label class="form-label" for="lokation3">Lokation (Land, By)</label>
+                <input class="form-control" type="text" name="data[lokation][]" id="lokation3" placeholder="Lokation" value="">
+            </div>
+            <!-- Repeat for additional file/location pairs -->
+            <div class="col-12 col-md-4 mb-3 d-flex justify-content-md-end">
+                <button class="btn btn-primary btn-submit" type="submit" id="btnSubmit">Gem din afstemning hér</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
-<form method="post" action="Indsaet.php" enctype="multipart/form-data">
+<div class="separator"></div>
+
+<div class="container mt-4">
+    <h2>Uploaded Images</h2>
     <div class="row">
-        <div class="col-12">
-            <label class="form-label" for="rejsebillede">Billede af rejselokation</label>
-            <input type="file" class="form-control" id="rejsebillede" name="rejsebillede">
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="form-group">
-                <label for="lokation">Lokation (Land, By)</label>
-                <input class="form-control" type="text" name="data[lokation]" id="lokation" placeholder="lokation" value="">
-            </div>
-        </div>
-        <div class="col-12">
-            <label class="form-label" for="rejsebillede">Billede af rejselokation</label>
-            <input type="file" class="form-control" id="rejsebillede" name="rejsebillede">
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="form-group">
-                <label for="lokation">Lokation (Land, By)</label>
-                <input class="form-control" type="text" name="data[lokation]" id="lokation" placeholder="lokation" value="">
-            </div>
-        </div>
-        <div class="col-12">
-            <label class="form-label" for="rejsebillede">Billede af rejselokation</label>
-            <input type="file" class="form-control" id="rejsebillede" name="rejsebillede">
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="form-group">
-                <label for="lokation">Lokation (Land, By)</label>
-                <input class="form-control" type="text" name="data[lokation]" id="lokation" placeholder="lokation" value="">
-            </div>
-        </div>
-        <div class="col-12">
-            <label class="form-label" for="rejsebillede">Billede af rejselokation</label>
-            <input type="file" class="form-control" id="rejsebillede" name="rejsebillede">
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="form-group">
-                <label for="lokation">Lokation (Land, By)</label>
-                <input class="form-control" type="text" name="data[lokation]" id="lokation" placeholder="lokation" value="">
-            </div>
-        </div>
+        <?php
+        // Fetch existing images from the database
+        $sql = "SELECT id, lokation, rejsebillede FROM rejser";
+        $images = $db->sql($sql, [], true);
 
-        <div class="col-12 col-md-6 offset-md-6">
-            <button class="form-control btn btn-primary" type="submit" id="btnSubmit">Gem din afstemning hér</button>
-        </div>
+        foreach ($images as $image) {
+            $imagePath = 'uploads/' . $image->rejsebillede;
+            echo '<div class="col-12 col-md-3 mb-3">';
+            echo '<div class="card">';
+            echo '<img src="' . $imagePath . '" class="card-img-top" alt="' . htmlspecialchars($image->lokation) . '">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' . htmlspecialchars($image->lokation) . '</h5>';
+            echo '<form method="post" action="delete.php" class="d-inline">';
+            echo '<input type="hidden" name="id" value="' . $image->id . '">';
+            echo '<button type="submit" class="btn btn-danger">Slet</button>';
+            echo '</form>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
     </div>
-</form>
+</div>
 
-
-
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
 
 
