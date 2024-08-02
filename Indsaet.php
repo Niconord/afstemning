@@ -1,6 +1,7 @@
 <?php
 require "settings/init.php";
 
+// Handle image uploads
 if (!empty($_POST["data"])) {
     $data = $_POST["data"];
     $files = $_FILES['rejsebillede'];
@@ -34,21 +35,14 @@ if (!empty($_POST["data"])) {
 <html lang="da">
 <head>
     <meta charset="utf-8">
-
     <title>Insert til database</title>
-
     <meta name="robots" content="All">
     <meta name="author" content="Udgiver">
     <meta name="copyright" content="Information om copyright">
-
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 </head>
-
 <body>
 <div class="container-fluid">
     <div class="row pb-2">
@@ -65,8 +59,8 @@ if (!empty($_POST["data"])) {
     <form method="post" action="Indsaet.php" enctype="multipart/form-data">
         <div class="row">
             <div class="col-12 mb-3">
-                <label class="form-label" for="rejsebillede1">Billede af rejselokation</label>
-                <input type="file" class="form-control" id="rejsebillede1" name="rejsebillede[]">
+                <label class="form-label" for="rejsebillede">Billede af rejselokation</label>
+                <input type="file" class="form-control" id="rejsebillede" name="rejsebillede[]">
             </div>
             <div class="col-12 col-md-8 mb-3">
                 <label class="form-label" for="lokation1">Lokation (Land, By)</label>
@@ -88,7 +82,6 @@ if (!empty($_POST["data"])) {
                 <label class="form-label" for="lokation3">Lokation (Land, By)</label>
                 <input class="form-control" type="text" name="data[lokation][]" id="lokation3" placeholder="Lokation" value="">
             </div>
-            <!-- Repeat for additional file/location pairs -->
             <div class="col-12 col-md-4 mb-3 d-flex justify-content-md-end">
                 <button class="btn btn-primary btn-submit" type="submit" id="btnSubmit">Gem din afstemning hér</button>
             </div>
@@ -96,14 +89,11 @@ if (!empty($_POST["data"])) {
     </form>
 </div>
 
-
-<div class="separator"></div>
-
+<!-- Display saved images and provide delete option -->
 <div class="container mt-4">
     <h2>Uploaded Images</h2>
     <div class="row">
         <?php
-        // Fetch existing images from the database
         $sql = "SELECT id, lokation, rejsebillede FROM rejser";
         $images = $db->sql($sql, [], true);
 
@@ -125,12 +115,6 @@ if (!empty($_POST["data"])) {
         ?>
     </div>
 </div>
-
-<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
 
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

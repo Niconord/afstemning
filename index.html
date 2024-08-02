@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="da">
 <head>
@@ -80,8 +83,22 @@
 
 <div class="separator"></div>
 
+<div class="container-fluid">
+	<div class="row pb-2">
+		<div class="col-12 d-flex justify-content-center">
+			<h1>Afstemning</h1>
+		</div>
+	</div>
+</div>
 <div class="afstemning container-fluid">
-	Afstemning hér
+	<div class="row">
+		<?php foreach ($billeder as $billede): ?>
+		<div class="col-12 col-md-6 col-lg-3 mb-3">
+			<img src="uploads/<?php echo htmlspecialchars($billede->rejsebillede); ?>" alt="<?php echo htmlspecialchars($billede->lokation); ?>" data-id="<?php echo $billede->id; ?>">
+			<p><?php echo htmlspecialchars($billede->lokation); ?></p>
+		</div>
+		<?php endforeach; ?>
+	</div>
 </div>
 
 <div class="separator"></div>
@@ -152,5 +169,45 @@
 		});
 	});
 </script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var images = document.querySelectorAll('.afstemning img');
+		var voteCounts = {};
+
+		images.forEach(function(img) {
+			var id = img.getAttribute('data-id');
+			voteCounts[id] = 0; // Initialiser stemmetællingen
+
+			img.addEventListener('click', function() {
+				voteCounts[id]++; // Inkrementér stemmetællingen
+				localStorage.setItem('voteCounts', JSON.stringify(voteCounts)); // Gem stemmerne i localStorage
+				updateVotes(); // Opdater visningen af stemmer
+			});
+		});
+
+		// Hent stemmer fra localStorage ved indlæsning af siden
+		var savedVotes = localStorage.getItem('voteCounts');
+		if (savedVotes) {
+			voteCounts = JSON.parse(savedVotes);
+			updateVotes(); // Opdater visningen af stemmer
+		}
+
+		function updateVotes() {
+			images.forEach(function(img) {
+				var id = img.getAttribute('data-id');
+				var voteCount = voteCounts[id] || 0;
+				var voteCountElem = img.nextElementSibling.nextElementSibling; // Finder p-elementet efter billedet
+				if (!voteCountElem || !voteCountElem.classList.contains('vote-count')) {
+					voteCountElem = document.createElement('p');
+					voteCountElem.classList.add('vote-count');
+					img.parentNode.appendChild(voteCountElem);
+				}
+				voteCountElem.textContent = "Stemmer: " + voteCount;
+			});
+		}
+	});
+</script>
 </body>
 </html>
+

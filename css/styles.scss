@@ -112,7 +112,28 @@ h2 {
 	background-image: url("../uploads/baggrundbillede.png");
 	background-size: contain;
 	background-position: center;
-	height: 100vh;
+	min-height: 50vh;
+}
+
+.afstemning img {
+	width: 100%;
+	max-height: 400px;
+	min-height: 300px;
+	object-fit: cover;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+
+.afstemning img.hidden {
+	opacity: 0;
+}
+
+.lokation-text {
+	font-size: 2.5rem;
+	font-weight: bold;
+	font-family: "Inter";
+	background-color: whitesmoke;
+
 }
 
 .carousel {
