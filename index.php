@@ -38,16 +38,16 @@ $billeder = $db->sql($sql, [], true);
                         <a class="nav-link" href="#follow">Socials</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#latest-upload">Latest video</a>
+                        <a class="nav-link" href="#LatestVideo">Latest video</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#poll">Viewer Poll</a>
+                        <a class="nav-link" href="#Poll">Viewer Poll</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#gallery">Gallery</a>
+                        <a class="nav-link" href="#Gallery">Gallery</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="#Contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -55,12 +55,12 @@ $billeder = $db->sql($sql, [], true);
     </div>
 </header>
 
-<div class="container-fluid header d-flex align-items-center justify-content-center p-3">
+<div class="container-fluid header d-flex align-items-center justify-content-center p-3" id="follow">
     <div class="row w-100 justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
             <div class="textbox bg-light bg-opacity-50 p-3 rounded d-flex flex-column flex-md-row align-items-center justify-content-center">
                 <div class="text-content text-wrap p-5">
-                    <h1 class="text-center text-md-left">Simon Andersen - Travel</h1>
+                    <h1 class="text-center text-md-left">Simon Andersen - Train, Travel & Transport</h1>
                     <p class="text-center text-md-left"> Bla bla bla  Bla bla bla  Bla bla bla  Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla</p>
                 </div>
                 <div class="container text-center">
@@ -79,7 +79,7 @@ $billeder = $db->sql($sql, [], true);
 
 <div class="separator"></div>
 
-<div class="container-fluid SenesteVideo d-flex flex-column justify-content-center align-items-center">
+<div class="container-fluid SenesteVideo d-flex flex-column justify-content-center align-items-center" id="LatestVideo">
     <h1 class="p-3">My latest video</h1>
     <div class="video-container">
         <iframe src="https://www.youtube.com/embed/gLowUjTF6Og" allowfullscreen></iframe>
@@ -88,7 +88,7 @@ $billeder = $db->sql($sql, [], true);
 
 <div class="separator"></div>
 
-<div class="afstemning container-fluid justify-content-center text-center align-content-center">
+<div class="afstemning container-fluid justify-content-center text-center align-content-center" id="Poll">
     <h1>Afstemning</h1>
         <div class="row" id="imageContainer">
             <?php foreach ($billeder as $billede): ?>
@@ -109,7 +109,7 @@ $billeder = $db->sql($sql, [], true);
 <div class="separator"></div>
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
+    <div class="carousel-inner" id="Gallery">
         <div class="carousel-item active">
             <img class="d-block w-100" src="uploads/galleri1.jpg" alt="First slide">
         </div>
@@ -139,7 +139,7 @@ $billeder = $db->sql($sql, [], true);
 <div class="separator"></div>
 
 <footer>
-    <div class="kontakt text-white text-center py-4">
+    <div class="kontakt text-white text-center py-4" id="Contact">
         <div class="container">
             <h3 class="p-2">Text me @ mail or socials</h3>
             <p class="mb-2">Press the icons to go to the desired social media</p>
@@ -193,25 +193,25 @@ $billeder = $db->sql($sql, [], true);
         var voted = localStorage.getItem('hasVoted');
         if (voted === 'true') {
             hasVoted = true;
-            hideImages(); // Hide images if user has already voted
-            showResetButton(); // Show "Vote Again" button
-            updateVotes(); // Show vote counts
+            hideImages(); // Gemmer billederne, når bruger har stemt
+            showResetButton(); // Viser "vote again" knap
+            updateVotes();
         }
 
         images.forEach(function(img) {
             var id = img.getAttribute('data-id');
-            voteCounts[id] = 0; // Initialize vote counts
+            voteCounts[id] = 0;
 
             img.addEventListener('click', function() {
-                if (hasVoted) return; // Prevent further clicks
+                if (hasVoted) return; // Gør så der ikke kan voteres igen
 
-                voteCounts[id]++; // Increment vote count
-                localStorage.setItem('voteCounts', JSON.stringify(voteCounts)); // Save votes
-                localStorage.setItem('hasVoted', 'true'); // Set flag that user has voted
-                hasVoted = true; // Prevent additional clicks
-                hideImages(); // Hide images
-                showResetButton(); // Show "Vote Again" button
-                updateVotes(); // Update vote counts
+                voteCounts[id]++; //
+                localStorage.setItem('voteCounts', JSON.stringify(voteCounts)); // Gemmer votes
+                localStorage.setItem('hasVoted', 'true'); //
+                hasVoted = true; // Gør så der ikke kan voteres igen
+                hideImages(); // Gemmer billederne, når bruger har stemt
+                showResetButton(); // Viser "vote again" knap
+                updateVotes();
             });
         });
 
@@ -220,47 +220,47 @@ $billeder = $db->sql($sql, [], true);
         if (savedVotes) {
             voteCounts = JSON.parse(savedVotes);
             if (hasVoted) {
-                hideImages(); // Hide images if user has voted
-                showResetButton(); // Show "Vote Again" button
+                hideImages(); // Gemmer billederne, når bruger har stemt
+                showResetButton(); // Viser "vote again" knap
             }
-            updateVotes(); // Update vote counts
+            updateVotes();
         }
 
         function hideImages() {
             images.forEach(function(img) {
-                img.style.display = 'none'; // Hide images
+                img.style.display = 'none'; // Gemmer billeder
             });
         }
 
         function showResetButton() {
-            resetButton.style.display = 'block'; // Show the button
+            resetButton.style.display = 'block'; // Vis knappen
         }
 
         function updateVotes() {
             images.forEach(function(img) {
                 var id = img.getAttribute('data-id');
                 var voteCount = voteCounts[id] || 0;
-                var voteCountElem = img.nextElementSibling.nextElementSibling; // Finds the vote count paragraph
+                var voteCountElem = img.nextElementSibling.nextElementSibling;
                 if (voteCountElem) {
-                    voteCountElem.textContent = "Stemmer: " + voteCount; // Update vote count text
-                    voteCountElem.style.display = 'block'; // Show vote count
+                    voteCountElem.textContent = "Stemmer: " + voteCount; // Opdatere votes med antal klik
+                    voteCountElem.style.display = 'block'; // Viser votes
                 }
             });
         }
 
-        // Reset voting when button is clicked
+        // Nulstilling af afstemning
         resetButton.addEventListener('click', function() {
-            localStorage.removeItem('voteCounts'); // Remove saved votes
-            localStorage.removeItem('hasVoted'); // Remove voted flag
-            voteCounts = {}; // Reset vote counts
-            hasVoted = false; // Allow voting again
-            imageContainer.style.display = 'flex'; // Show images
-            resetButton.style.display = 'none'; // Hide the button
+            localStorage.removeItem('voteCounts'); // Fjerne vote
+            localStorage.removeItem('hasVoted'); // Fjerner at brugeren "har stemt"
+            voteCounts = {}; // Resetter votes
+            hasVoted = false; // Gør så brugeren kan stemme igen
+            imageContainer.style.display = 'flex'; // Viser billederne
+            resetButton.style.display = 'none'; // Gemmer "vote again" knap
             images.forEach(function(img) {
-                img.style.display = 'block'; // Show images
-                var voteCountElem = img.nextElementSibling.nextElementSibling; // Finds the vote count paragraph
+                img.style.display = 'block'; // Viser billederne
+                var voteCountElem = img.nextElementSibling.nextElementSibling;
                 if (voteCountElem) {
-                    voteCountElem.style.display = 'none'; // Hide vote counts
+                    voteCountElem.style.display = 'none'; // Gemmer votes
                 }
             });
         });
