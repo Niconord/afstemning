@@ -61,15 +61,16 @@ $billeder = $db->sql($sql, [], true);
             <div class="textbox bg-light bg-opacity-50 p-3 rounded d-flex flex-column flex-md-row align-items-center justify-content-center">
                 <div class="text-content text-wrap p-5">
                     <h1 class="text-center text-md-left">Simon Andersen - Train, Travel & Transport</h1>
-                    <p class="text-center text-md-left"> Bla bla bla  Bla bla bla  Bla bla bla  Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla</p>
+                    <h4 class="text-center text-md-left"> Hello visitor! Welcome to my new webpage featuring what I do and my social medias.
+                        I am a travel-youtuber visiting countries to look at forms of transportation, sightseeing both cities and far off-site locations.</h4>
                 </div>
                 <div class="container text-center">
                     <h2>Social channels</h2>
                     <div class="button-group d-flex flex-wrap justify-content-center">
                         <a href="https://www.youtube.com/@Simon-Andersen" class="button button-primary m-2">YouTube</a>
                         <a href="https://www.instagram.com/nuggetwarrior52" class="button button-secondary m-2">Instagram</a>
-                        <a href="https://www.example.com" class="button button-tertiary m-2">Twitter</a>
-                        <a href="https://www.example.com" class="button button-quaternary m-2">TikTok</a>
+                        <a href="https://www.instagram.com/nuggetwarrior52" class="button button-tertiary m-2">Twitter</a>
+                        <a href="https://www.instagram.com/nuggetwarrior52" class="button button-quaternary m-2">TikTok</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +81,7 @@ $billeder = $db->sql($sql, [], true);
 <div class="separator"></div>
 
 <div class="container-fluid SenesteVideo d-flex flex-column justify-content-center align-items-center" id="LatestVideo">
-    <h1 class="p-3">My latest video</h1>
+    <h1 class="p-3">Latest video</h1>
     <div class="video-container">
         <iframe src="https://www.youtube.com/embed/gLowUjTF6Og" allowfullscreen></iframe>
     </div>
@@ -88,22 +89,23 @@ $billeder = $db->sql($sql, [], true);
 
 <div class="separator"></div>
 
-<div class="afstemning container-fluid justify-content-center text-center align-content-center" id="Poll">
-    <h1>Afstemning</h1>
-        <div class="row" id="imageContainer">
-            <?php foreach ($billeder as $billede): ?>
-                <div class="col-12 col-md-6 col-lg-3 mb-3">
-                    <img src="uploads/<?php echo htmlspecialchars($billede->rejsebillede); ?>"
-                        alt="<?php echo htmlspecialchars($billede->lokation); ?>"
-                        data-id="<?php echo $billede->id; ?>"
-                        data-voted="false">
-                    <p class="lokation-text"><?php echo htmlspecialchars($billede->lokation); ?></p>
-                    <p class="vote-count" style="display: none;">Stemmer: 0</p> <!-- Initially hidden -->
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <button id="resetVotesButton" class="btn btn-secondary mt-3" style="display: none;">Vote Again</button>
+
+
+<div class="afstemning container-fluid">
+    <div class="col-12 d-flex flex-column align-items-center p-3 text-wrap">
+        <h1>Poll</h1>
+        <h3>Where should my next journey go to?</h3>
+    </div>
+    <div class="row">
+        <?php foreach ($billeder as $billede): ?>
+            <div class="col-12 col-md-6 col-lg-3 mb-3">
+                <img src="uploads/<?php echo htmlspecialchars($billede->rejsebillede); ?>" alt="<?php echo htmlspecialchars($billede->lokation); ?>" data-id="<?php echo $billede->id; ?>">
+                <p class="lokation-text p-2"><?php echo htmlspecialchars($billede->lokation); ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </div>
+
 
 
 <div class="separator"></div>
@@ -141,19 +143,19 @@ $billeder = $db->sql($sql, [], true);
 <footer>
     <div class="kontakt text-white text-center py-4" id="Contact">
         <div class="container">
-            <h3 class="p-2">Text me @ mail or socials</h3>
-            <p class="mb-2">Press the icons to go to the desired social media</p>
+            <h3 class="p-2">Text me at my email or socials</h3>
+            <p class="mb-2">Simply click an icon to proceed</p>
             <div class="d-flex justify-content-center">
-                <a href="mailto:example@example.com" class="text-white me-3">
+                <a href="mailto:Simonandersen706@gmail.com" class="text-white me-3">
                     <i class="fas fa-envelope fa-2x"></i>
                 </a>
                 <a href="https://www.facebook.com" class="text-white me-3">
                     <i class="fab fa-facebook fa-2x"></i>
                 </a>
-                <a href="https://www.youtube.com" class="text-white me-3">
+                <a href="https://www.youtube.com/@Simon-Andersen" class="text-white me-3">
                     <i class="fab fa-youtube fa-2x"></i>
                 </a>
-                <a href="https://www.instagram.com" class="text-white">
+                <a href="https://www.instagram.com/nuggetwarrior52" class="text-white">
                     <i class="fab fa-instagram fa-2x"></i>
                 </a>
             </div>
