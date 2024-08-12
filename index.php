@@ -27,8 +27,8 @@ $billeder = $db->sql($sql, [], true);
 <body>
 <header class="bg-light p-3">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#"><img class="logo" src="uploads/LogoLysnobg.png" alt="Your Logo"></a>
+        <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+            <a class="navbar-brand" href="#navbar"><img class="logo" src="uploads/LogoLysnobg.png" alt="Your Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -91,7 +91,7 @@ $billeder = $db->sql($sql, [], true);
 
 
 
-<div class="afstemning container-fluid">
+<div class="afstemning container-fluid" id="Poll">
     <div class="col-12 d-flex flex-column align-items-center p-3 text-wrap">
         <h1>Poll</h1>
         <h3>Where should my next journey go to?</h3>
