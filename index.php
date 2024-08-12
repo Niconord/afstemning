@@ -95,14 +95,21 @@ $billeder = $db->sql($sql, [], true);
     <div class="col-12 d-flex flex-column align-items-center p-3 text-wrap">
         <h1>Poll</h1>
         <h3>Where should my next journey go to?</h3>
+        <h2>Pick a location - click to put your vote!</h2>
     </div>
-    <div class="row">
+
+    <div class="row" id="imageContainer">
         <?php foreach ($billeder as $billede): ?>
             <div class="col-12 col-md-6 col-lg-3 mb-3">
                 <img src="uploads/<?php echo htmlspecialchars($billede->rejsebillede); ?>" alt="<?php echo htmlspecialchars($billede->lokation); ?>" data-id="<?php echo $billede->id; ?>">
                 <p class="lokation-text p-2"><?php echo htmlspecialchars($billede->lokation); ?></p>
+                <!-- Vote count placeholder -->
+                <p class="vote-count" style="display: none;">Stemmer: 0</p>
             </div>
         <?php endforeach; ?>
+    </div>
+    <div class="d-flex justify-content-center pb-3">
+        <button id="resetVotesButton" class="resetVote" style="display: none;">Vote Again</button>
     </div>
 </div>
 
