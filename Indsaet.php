@@ -42,6 +42,15 @@ if (!empty($_POST["data"])) {
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JavaScript for confirmation -->
+    <script>
+        function confirmDelete(event) {
+            if (!confirm('Er du sikker på, at du vil slette dette billede?')) {
+                event.preventDefault(); // Prevent form submission if user cancels
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -104,7 +113,7 @@ if (!empty($_POST["data"])) {
             echo '<img src="' . $imagePath . '" class="card-img-top" alt="' . htmlspecialchars($image->lokation) . '">';
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . htmlspecialchars($image->lokation) . '</h5>';
-            echo '<form method="post" action="delete.php" class="d-inline">';
+            echo '<form method="post" action="delete.php" class="d-inline" onsubmit="confirmDelete(event)">';
             echo '<input type="hidden" name="id" value="' . $image->id . '">';
             echo '<button type="submit" class="btn btn-danger">Slet</button>';
             echo '</form>';
